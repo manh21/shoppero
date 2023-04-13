@@ -6,8 +6,9 @@ Please note that this is a dummy e-commerce platform and is not intended for com
 
 #### API Documentation
 TODO
+
 ### DEMO
-TODO
+https://shopper.manh21.com
 
 ### Default Account
 Shopper:
