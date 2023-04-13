@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { GiGlassBall, GiPostStamp } from "react-icons/gi";
 import { MdEditSquare } from "react-icons/md";
 import { HiInformationCircle } from "react-icons/hi";
+import { AiFillDelete} from "react-icons/ai";
 import Image from "next/image";
 import Head from "next/head";
 
@@ -99,6 +100,15 @@ export default function Customer({
             setCustomerData(response.data);
         }
     };
+
+    const deleteCustomer = async (id: string) => {
+        const res = await fetch("/api/customer?id=" + id, {
+            method: "DELETE",
+        });
+        if (res.status == 200) {
+            getData();
+        }
+    }
 
     const approveCustomer = async (id: string) => {
         const res = await fetch("/api/customer/approve", {
@@ -256,6 +266,10 @@ export default function Customer({
                                                 <Button color="gray" onClick={() => showEdit(customer.id)}>
                                                     <MdEditSquare className="mr-3 h-4 w-4" />
                                                     Edit
+                                                </Button>
+                                                <Button color="gray" onClick={() => deleteCustomer(customer.id)}>
+                                                    <AiFillDelete className="mr-3 h-4 w-4" />
+                                                    Delete
                                                 </Button>
                                                 {!customer.active ? (
                                                     <Button
