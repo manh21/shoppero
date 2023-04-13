@@ -1,4 +1,5 @@
-import Header from "../header"
+import Header from "../header2"
+import Footers from "../footer";
 
 interface FrontLayoutProps {
     children: React.ReactNode
@@ -6,9 +7,10 @@ interface FrontLayoutProps {
 
 export default function FrontLayout({children}: FrontLayoutProps) {
     return (
-      <>
-        <Header />
-        <main>{children}</main>
-      </>
+      <div className="container mx-auto">
+          <Header/>
+          <main>{children}</main>
+          <Footers></Footers>
+      </div>
     )
 }
