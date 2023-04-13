@@ -1,6 +1,7 @@
 
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getProviders, getSession, getCsrfToken } from "next-auth/react";
+import Head from "next/head";
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     const session = await getSession(ctx);
@@ -24,6 +25,10 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
 function signin({csrfToken}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
+        <>
+        <Head>
+            <title>Shopper - SignIn</title>
+        </Head>
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -50,6 +55,7 @@ function signin({csrfToken}: InferGetServerSidePropsType<typeof getServerSidePro
                 </div>
             </div>
         </section>
+        </>
     );
 }
 

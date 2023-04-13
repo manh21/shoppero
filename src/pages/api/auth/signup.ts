@@ -131,7 +131,7 @@ export default async function handler(
 
 const saveFile = async (file: formidable.File) => {
     const data = fs.readFileSync(file.filepath);
-    fs.writeFileSync(`./public/${file.newFilename}`, data);
+    fs.writeFileSync(`./public/userfiles/avatar/${file.newFilename}`, data);
     fs.unlinkSync(file.filepath);
     return file.newFilename;
 };

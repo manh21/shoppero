@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { Adapter } from "next-auth/adapters"
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '@/lib/prisma';
@@ -7,11 +6,11 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import { comparePassword } from '@/services/password';
 
 // Modules needed to support key generation, token encryption, and HTTP cookie manipulation 
-import { randomBytes, randomUUID } from 'crypto'
+import { randomUUID } from 'crypto'
 import Cookies from 'cookies'
 import { encode, decode } from 'next-auth/jwt'
 
-export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+export const authOptions = (req: NextApiRequest, res: NextApiResponse) => {
     const adapter = PrismaAdapter(prisma)
     const options: NextAuthOptions = {
         providers: [
@@ -111,7 +110,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                 return decode({token, secret})
             }
         },
-        debug: true,
         cookies: {
             sessionToken: {
               name: "next-auth.session-token",
@@ -129,7 +127,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         },
     }
 
-    return await NextAuth(req, res, options)
+    return options;
+
+}
+
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+   
+    return await NextAuth(req, res, authOptions(req, res))
 }
 
 const generateSessionToken = () => {
