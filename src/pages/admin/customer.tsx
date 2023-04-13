@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import {
     Alert,
     Button,
+    Checkbox,
     Label,
     Modal,
     TextInput,
@@ -153,7 +154,8 @@ export default function Customer({
         body.append("email", event.target.email.value);
         body.append("name", event.target.name.value);
         body.append("customerId", event.target.customerId.value);
-
+        body.append("status", event.target.status.checked);
+        
         if(password && (password !== confirm)) {
             setShowAlert(true)
             setAlertData({
@@ -181,6 +183,8 @@ export default function Customer({
                 message: result.statusText,
             })
         }
+
+        getData();
     }
 
     useEffect(() => {
@@ -391,6 +395,15 @@ export default function Customer({
                                 required={true}
                                 defaultValue={modalEditData.username ?? ''}
                             />
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="status" value="Status" />
+                            </div>
+                            <Checkbox id="status" name="status" defaultChecked={modalEditData.active} onChange={console.log}/>
+                            <Label htmlFor="status">
+                               {' '} Active
+                            </Label>
                         </div>
                         <div>
                             <div className="mb-2 block">

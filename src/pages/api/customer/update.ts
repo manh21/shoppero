@@ -38,9 +38,9 @@ export default async function handler(
                 const form = new formidable.IncomingForm();
                 form.parse(req, async function (err, fields, files) {
                     const filename = files.file ? await saveFile(files.file as formidable.File) : undefined;
-                    const { name, username, email, password, confirm, customerId } = fields;
+                    const { name, username, email, password, confirm, customerId, status } = fields;
 
-                    if (!(name && username && email)) {
+                    if (!(name && username && email && customerId)) {
                         res.status(400).json({
                             status: 'error',
                             statusText: "Invalid user parameters",
@@ -89,6 +89,7 @@ export default async function handler(
                         username: username as string,
                         password: password ? await generatePasswordHash(password as string) : undefined,
                         image: filename ? filename : undefined,
+                        active: status === 'true' ? true : false,
                     };
     
                     const user = await prisma.user.update({
