@@ -9,6 +9,15 @@ TODO
 ### DEMO
 TODO
 
+### Default Account
+Shopper:
+* Username: shopper
+* Password: shopper
+
+Admin:
+* Username: admin
+* Password: admin
+
 ### Docker
 TODO
 * `docker-compose build --no-cache`
